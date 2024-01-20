@@ -14,8 +14,8 @@
         <td class="border px-4 py-2" v-text="user.firstName + ' ' + user.lastName" />
         <td class="border px-4 py-2" v-text="user.birthDate" />
         <td class="border px-4 py-2" v-text="userAge(user)" />
-        <td class="border px-4 py-2" v-text="user.profession_id" />
-        <td class="border px-4 py-2" v-text="user.country_id" />
+        <td class="border px-4 py-2" v-text="user.professionId" />
+        <td class="border px-4 py-2" v-text="user.countryId" />
         <td class="border px-4 py-2" v-text="user.quote" />
         <td class="px-4 py-2">
           <button-component
@@ -28,7 +28,6 @@
 </template>
 
 <script>
-// import User from './User';
 import { mapState, mapActions } from 'vuex'
 import ButtonComponent from './Button.vue';
 

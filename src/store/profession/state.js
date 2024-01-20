@@ -1,5 +1,4 @@
 const state = {
-  selectedProfessionId: null,
   professions: [
     {
       value: 1,

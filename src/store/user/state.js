@@ -6,8 +6,8 @@ const state = {
       lastName: 'Doe',
       birthDate: '1988-02-25',
       quote: 'Hello World!',
-      profession_id: 1,
-      country_id: 1,
+      professionId: 1,
+      countryId: 1,
     },
   ],
 };
