@@ -1,7 +1,7 @@
 const state = {
   users: [
     {
-      id: 1,
+      id: 0,
       firstName: 'John',
       lastName: 'Doe',
       birthDate: '1988-02-25',
