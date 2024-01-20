@@ -10,17 +10,17 @@
       <th class="px-4 py-2" v-text="''" />
     </thead>
     <tbody>
-      <tr v-for="(user, key) in users" :key="key">
+      <tr v-for="(user, key) in allUsers" :key="key">
         <td class="border px-4 py-2" v-text="user.firstName + ' ' + user.lastName" />
         <td class="border px-4 py-2" v-text="user.birthDate" />
         <td class="border px-4 py-2" v-text="userAge(user)" />
-        <td class="border px-4 py-2" v-text="user.professionId" />
-        <td class="border px-4 py-2" v-text="user.countryId" />
+        <td class="border px-4 py-2" v-text="getProfessionName(user.professionId)" />
+        <td class="border px-4 py-2" v-text="getCountryName(user.countryId)" />
         <td class="border px-4 py-2" v-text="user.quote" />
         <td class="px-4 py-2">
           <button-component
             class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
-            :on-click="() => removeRow(user)" :button-text="'Remove'" />
+            :on-click="() => removeRow(user.id)" :button-text="'Remove'" />
         </td>
       </tr>
     </tbody>
@@ -28,24 +28,22 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
+
 import ButtonComponent from './Button.vue';
+import { calculateAge } from './_helpers';
 
 export default {
   name: 'UserList',
   components: {
     ButtonComponent,
   },
-  data() {
-    return {
-      selected: []
-    };
-  },
   computed: {
-    ...mapState({
-      users: state => state.userModule.users,
-      professions: state => state.professionModule.professions,
-    }),
+    ...mapGetters([
+      'allUsers',
+      'professionById',
+      'countryById',
+    ]),
   },
   methods: {
     ...mapActions([
@@ -54,9 +52,14 @@ export default {
     removeRow(user) {
       this.removeUser(user);
     },
-    userAge() {
-      const age = (new Date()).getUTCFullYear() - 1970;
-      return age;
+    getProfessionName(professionId) {
+      return this.professionById(professionId);
+    },
+    getCountryName(countryId) {
+      return this.countryById(countryId);
+    },
+    userAge(user) {
+      return calculateAge(user.birthDate);
     },
   },
 }

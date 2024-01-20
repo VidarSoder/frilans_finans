@@ -29,15 +29,17 @@
           class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
           id="grid-quote" type="text" placeholder="Enter Quote" v-model="user.quote">
       </div>
-      <drop-down :options="professions" :changeSelect="selectProfession" label="Profession" />
-      <drop-down :options="countries" :changeSelect="selectCountry" label="Country" />
+      <drop-down :options="allProfessions" :changeSelect="selectProfession" label="Profession" />
+      <drop-down :options="allCountries" :changeSelect="selectCountry" label="Country" />
     </div>
-    <button-component :on-click="addUser" button-text="Save User" />
+    <button-component :on-click="saveUser" button-text="Save User" />
   </form>
 </template>
 
 <script>
-import { mapState, mapActions, mapMutations } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
+
+import { getInitialUserState } from './_helpers';
 import DropDown from './DropDown';
 import ButtonComponent from './Button';
 
@@ -45,12 +47,7 @@ export default {
   name: 'AddUser',
   data() {
     return {
-      user: {
-        firstName: '',
-        lastName: '',
-        birthDate: null,
-        quote: '',
-      },
+      user: getInitialUserState(),
     };
   },
   components: {
@@ -58,27 +55,27 @@ export default {
     ButtonComponent,
   },
   computed: {
-    ...mapState({
-      professions: state => state.professionModule.professions,
-      countries: state => state.countryModule.countries,
-    }),
+    ...mapGetters([
+      'allProfessions',
+      'allCountries'
+    ]),
   },
   methods: {
-    ...mapMutations({
-      setProfession: 'SET_PROFESSION',
-      setCountry: 'SET_COUNTRY',
-    }),
     ...mapActions([
       'addUser',
     ]),
-    addUser() {
-      this.addNewUser(this.user);
+    saveUser() {
+      this.addUser(this.user);
+      this.resetForm();
     },
     selectProfession(professionId) {
       this.user.professionId = +professionId;
     },
     selectCountry(countryId) {
       this.user.countryId = +countryId;
+    },
+    resetForm() {
+      this.user = getInitialUserState();
     },
   },
 }
