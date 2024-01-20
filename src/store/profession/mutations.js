@@ -1,6 +1,6 @@
 const mutations = {
-  SET_PROFESSION: (state, professionId) => {
-
+  CHANGE_ACTIVE_PROFESSION: (state, professionId) => {
+    state.selectedProfessionId = professionId;
   },
 };
 

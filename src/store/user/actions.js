@@ -1,6 +1,9 @@
 const actions = {
-    removeUser({ commit }, user) {
-        commit('REMOVE_USERS', userId);
+    removeUser({ commit }, userId) {
+        commit('REMOVE_USER', userId);
+    },
+    addUser({ commit }, user) {
+        commit('ADD_USER', user);
     }
 };
 
