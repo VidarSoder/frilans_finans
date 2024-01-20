@@ -85,8 +85,8 @@ export default {
     },
     resetForm() {
       this.user = getInitialUserState();
-      this.activeProfession(1); // Default profession ID
-      this.activeCountry(1); // Default country ID
+      this.activeProfession(null);
+      this.activeCountry(null);
     },
   },
 }
