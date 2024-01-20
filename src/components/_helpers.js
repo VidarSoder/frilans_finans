@@ -4,9 +4,28 @@ export function getInitialUserState() {
         lastName: '',
         birthDate: '',
         quote: '',
-        professionId: 1,
-        countryId: 1,
+        professionId: null,
+        countryId: null,
     };
+}
+
+export function validateUser(user) {
+    let errors = {};
+
+    if (!user.firstName.trim()) {
+        errors.firstName = 'First name is required.';
+    }
+    if (!user.lastName.trim()) {
+        errors.lastName = 'Last name is required.';
+    }
+
+    if (user.birthDate && new Date(user.birthDate) > new Date().setHours(23, 59, 59, 999)) {
+        errors.birthDate = 'Date of birth must be in the past or today.';
+    }
+
+    // Can add more validation rules here
+
+    return errors;
 }
 
 export function calculateAge(birthDate) {

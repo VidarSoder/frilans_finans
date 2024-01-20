@@ -1,4 +1,5 @@
 const state = {
+  selectedProfessionId: 1,
   professions: [
     {
       value: 1,
@@ -15,6 +16,10 @@ const state = {
     {
       value: 4,
       text: 'CTO',
+    },
+    {
+      value: 5,
+      text: 'Adventurer',
     },
   ],
 };

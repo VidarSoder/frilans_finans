@@ -1,4 +1,5 @@
 const state = {
+  selectedCountryId: 1,
   countries: [
     {
       value: 1,
@@ -15,6 +16,10 @@ const state = {
     {
       value: 4,
       text: 'Norway',
+    },
+    {
+      value: 5,
+      text: 'Hyrule',
     },
   ],
 };

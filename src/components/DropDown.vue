@@ -4,7 +4,7 @@
     <div class="relative">
       <select id="grid-state"
         class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-        @change="changeSelect($event.target.value)">
+        :value="currentValue" @change="handleChange($event.target.value)">
         <option v-for="(option, index) in options" :key="index" :value="option.value" v-text="option.text" />
       </select>
       <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -17,24 +17,32 @@
 </template>
 
 <script>
+
 export default {
   name: 'DropDown',
   props: {
-    options: {
-      type: Array,
-      default: () => [
-        { value: 1, text: 'Option 1' },
-        { value: 2, text: 'Option 2' },
-      ],
-    },
-    label: {
-      type: String,
-      default: 'Label',
-    },
-    changeSelect: {
-      type: Function,
-      default: () => { },
-    },
+    options: Array,
+    label: String,
+    value: [String, Number],
+    onChange: Function
   },
+  computed: {
+    currentValue: {
+      get() {
+        return this.value;
+      },
+      set(newValue) {
+        this.$emit('input', newValue);
+      }
+    }
+  },
+  methods: {
+    handleChange(value) {
+      this.currentValue = value;
+      if (this.onChange) {
+        this.onChange(value);
+      }
+    }
+  }
 }
 </script>
